@@ -1,0 +1,33 @@
+{
+	"name": "inlay-regex",
+	"displayName": "Inlay Regex",
+	"version": "1.0.0",
+	"description": "Generate sample regular expressions for in an inlay preview",
+	"categories": [
+		"Other"
+	],
+	"repository": "https://github.com/Nixinova/Inlay-Regex",
+	"license": "ISC",
+	"publisher": "Nixinova",
+	"main": "./dist/extension",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc"
+	},
+	"contributes": {},
+	"activationEvents": [
+		"onLanguage:javascript",
+		"onLanguage:typescript"
+	],
+	"dependencies": {
+		"randexp": "~0.5.3"
+	},
+	"devDependencies": {
+		"@types/node": "ts4.3",
+		"@types/vscode": "^1.50.0",
+		"typescript": "^4.3.5"
+	},
+	"engines": {
+		"vscode": "^1.50.0"
+	}
+}
