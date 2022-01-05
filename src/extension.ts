@@ -3,13 +3,12 @@ import RandExp from 'randexp';
 
 const languages = ['javascript', 'typescript', 'coffeescript', 'ruby', 'groovy'];
 const numPreviews = 5;
+const regexRegex = /\/((?![*+?])(?:[^\r\n\[/\\]|\\.|\[(?:[^\r\n\]\\]|\\.)*\])+)\/[gimusy]*/; // so:17843691
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position) {
 	// Get content of line
-	const regex = /\/.*?[^\\]\/[gimusy]*/g;
-	const range = document.getWordRangeAtPosition(position, regex);
+	const range = document.getWordRangeAtPosition(position, regexRegex);
 	const match = document.getText(range);
-	console.debug({match})
 	// Exit if no regex selected
 	if (match.includes('\n')) return;
 	// Create preview regexes
@@ -23,7 +22,7 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position) 
 		}
 	}
 	// Return
-	const previewText = previews.map(text => '\n- ``' + text + '``').join('');
+	const previewText = previews.map(text => '\n- `` ' + text + ' ``').join('');
 	const result = new vscode.MarkdownString(`**Possible matches:**\n${previewText}`);
 	return new vscode.Hover(result);
 }

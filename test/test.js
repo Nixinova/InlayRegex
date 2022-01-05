@@ -5,4 +5,6 @@ const regex = /\/.*?[^\\]\/[gimusy]*?/g;
 if ("string".match(/s..\w+$/)) console.log('match');
 /a/, /b/;
 /.+/
-
+const escape = /a\\b/ + /!\\/;
+const look = /abc(?=def)/;
+const lookNested = /abc(?=(?<!def)def)/;
