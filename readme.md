@@ -1,6 +1,6 @@
 # Inlay Regex
 
-A [VSCode](https://github.com/microsoft/vscode) extension which generates sample regular expressions for display in an inlay preview.
+A [VSCode](https://github.com/microsoft/vscode) extension which generates sample regular expressions for display in a hover text box to help you understand those complex patterns.
 
 ## Example
 
@@ -14,4 +14,11 @@ For manual install see attachments in the [releases tab](https://github.com/Nixi
 ## Usage
 
 The extension activates when the document is saved.
-Sample regular expressions are added near to the regular expression literal.
+Hover over a regular expression literal and to be shown several possible matches of that regular expression.
+
+### Supported languages
+- JavaScript
+- TypeScript
+- CoffeeScript
+- Ruby
+- Groovy
