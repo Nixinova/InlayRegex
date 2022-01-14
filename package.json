@@ -1,10 +1,9 @@
 {
 	"name": "inlay-regex",
 	"displayName": "Inlay Regex Previewer",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "Generate sample matches when a regular expression is hovered over.",
 	"categories": [
-		"Debuggers",
 		"Other"
 	],
 	"repository": "https://github.com/Nixinova/Inlay-Regex",
@@ -18,7 +17,9 @@
 	"contributes": {},
 	"activationEvents": [
 		"onLanguage:javascript",
+		"onLanguage:javascriptreact",
 		"onLanguage:typescript",
+		"onLanguage:typescriptreact",
 		"onLanguage:coffeescript",
 		"onLanguage:ruby",
 		"onLanguage:groovy"

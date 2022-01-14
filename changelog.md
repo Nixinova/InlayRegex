@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+- Added support for JSX and TSX.
+- Changed output to create shorter wildcard results.
+
 ## 1.1.1
 - Fixed expressions with escaped backslashes not displaying previews.
 - Fixed unescaped characters breaking the preview formatting.

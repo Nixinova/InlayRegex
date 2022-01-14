@@ -1,8 +1,17 @@
 import * as vscode from 'vscode';
 import RandExp from 'randexp';
 
-const languages = ['javascript', 'typescript', 'coffeescript', 'ruby', 'groovy'];
-const numPreviews = 5;
+const supportedLanguages = [
+	'javascript',
+	'javascriptreact',
+	'typescript',
+	'typescriptreact',
+	'coffeescript',
+	'ruby',
+	'groovy',
+];
+
+const COUNT = 5;
 const regexRegex = /\/((?![*+?])(?:[^\r\n\[/\\]|\\.|\[(?:[^\r\n\]\\]|\\.)*\])+)\/[gimusy]*/; // so:17843691
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position) {
@@ -13,9 +22,9 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position) 
 	if (match.includes('\n')) return;
 	// Create preview regexes
 	const previews: string[] = [];
-	for (let i = 0; i < numPreviews; i++) {
+	for (let i = 0; i < COUNT; i++) {
 		const annotation = new RandExp(eval(match));
-		annotation.max = 10;
+		annotation.max = 5;
 		const preview = annotation.gen();
 		if (!previews.includes(preview)) {
 			previews.push(preview);
@@ -27,6 +36,7 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position) 
 	return new vscode.Hover(result);
 }
 
-for (const language of languages) {
+// Activate extension
+for (const language of supportedLanguages) {
 	vscode.languages.registerHoverProvider(language, { provideHover: provideHover });
 }
