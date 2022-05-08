@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.3
+- Changed the description text in the hover window.
+- Changed the sample matches list to always try to print five non-duplicate matches if possible.
+
 ## 1.1.2
 - Added support for JSX and TSX.
 - Changed output to create shorter wildcard results.

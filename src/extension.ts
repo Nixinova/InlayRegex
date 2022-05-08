@@ -11,7 +11,6 @@ const supportedLanguages = [
 	'groovy',
 ];
 
-const COUNT = 5;
 const regexRegex = /\/((?![*+?])(?:[^\r\n\[/\\]|\\.|\[(?:[^\r\n\]\\]|\\.)*\])+)\/[gimusy]*/; // so:17843691
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position) {
@@ -22,7 +21,8 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position) 
 	if (match.includes('\n')) return;
 	// Create preview regexes
 	const previews: string[] = [];
-	for (let i = 0; i < COUNT; i++) {
+	let i = 0;
+	while (previews.length < 5 && i++ < 20) {
 		const annotation = new RandExp(eval(match));
 		annotation.max = 5;
 		const preview = annotation.gen();
@@ -32,7 +32,8 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position) 
 	}
 	// Return
 	const previewText = previews.map(text => '\n- `` ' + text + ' ``').join('');
-	const result = new vscode.MarkdownString(`**Possible matches:**\n${previewText}`);
+	const outputText = `**Sample matches:**\n${previewText}`;
+	const result = new vscode.MarkdownString(outputText);
 	return new vscode.Hover(result);
 }
 
