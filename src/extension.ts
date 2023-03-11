@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import RandExp from 'randexp';
 
 const supportedLanguages = [
+	// languages with regex literals
 	'javascript',
 	'javascriptreact',
 	'typescript',
@@ -11,20 +12,45 @@ const supportedLanguages = [
 	'groovy',
 ];
 
-const regexRegex = /\/((?![*+?])(?:[^\r\n\[/\\]|\\.|\[(?:[^\r\n\]\\]|\\.)*\])+)\/[gimusy]*/; // so:17843691
+const REGEX_MATCHER = new RegExp(`
+	(?<!<) ${/* dont match HTML e.g. <a>b</a> */''}
+	\\/
+	(
+		(?! [*+?] ) ${/* dont match block comments */''}
+		(?:
+			[^\\r\\n\\[\\/\\\\] ${/* match non-escapes and non-groups */''}
+			|
+			\\. ${/* match escapes */''}
+			|
+			\\[
+			(?:
+				[^\\r\\n\\]\\\\]
+				|
+				\\\\.
+			)*
+			\\]
+		)+
+	)
+	\\/
+	[gimusy]*
+	`.replace(/\s/g, '')
+);
+
+const NUM_MATCHES = 5; // number of matches shown in hover window
+const MAX_NUM_TRIES = 20; // number of times to try create non-duplicate matches before giving up
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position) {
 	// Get content of line
-	const range = document.getWordRangeAtPosition(position, regexRegex);
+	const range = document.getWordRangeAtPosition(position, REGEX_MATCHER);
 	const match = document.getText(range);
+	const [, matchContent, matchFlags] = match.split('/');
 	// Exit if no regex selected
 	if (match.includes('\n')) return;
 	// Create preview regexes
 	const previews: string[] = [];
-	let i = 0;
-	while (previews.length < 5 && i++ < 20) {
-		const annotation = new RandExp(eval(match));
-		annotation.max = 5;
+	for (let i = 0; previews.length < NUM_MATCHES && i < MAX_NUM_TRIES; i++) {
+		const annotation = new RandExp(new RegExp(matchContent, matchFlags));
+		annotation.max = NUM_MATCHES;
 		const preview = annotation.gen();
 		if (!previews.includes(preview)) {
 			previews.push(preview);

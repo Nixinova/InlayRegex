@@ -7,4 +7,5 @@ if ("string".match(/s..\w+$/)) console.log('match');
 /.+/
 const escape = /a\\b/ + /!\\/;
 const look = /abc(?=def)/;
-const lookNested = /abc(?=(?<!def)def)/;
+const lookNested = /abc(?=(?<!def)def)/; // doesnt work
+const html = `<a>foo</a><b>bar</b>`;
