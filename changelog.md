@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.4
+- Fixed HTML tags being treated as regular expressions.
+
 ## 1.1.3
 - Changed the description text in the hover window.
 - Changed the sample matches list to always try to print five non-duplicate matches if possible.
