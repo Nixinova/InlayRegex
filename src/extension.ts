@@ -13,14 +13,14 @@ const supportedLanguages = [
 ];
 
 const REGEX_MATCHER = new RegExp(`
-	(?<!<) ${/* dont match HTML e.g. <a>b</a> */''}
+	(?<!<) ${/* dont match HTML e.g. '<a>b</a>' */''}
 	\\/
 	(
 		(?! [*+?] ) ${/* dont match block comments */''}
 		(?:
 			[^\\r\\n\\[\\/\\\\] ${/* match non-escapes and non-groups */''}
 			|
-			\\. ${/* match escapes */''}
+			\\\\. ${/* match escapes e.g. '\s' */''}
 			|
 			\\[
 			(?:
