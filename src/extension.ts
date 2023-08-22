@@ -54,7 +54,7 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position) 
 		hoverMsg = generatedHover;
 	}
 	catch {
-		hoverMsg = 'Invalid regular expression.'
+		hoverMsg = 'Cannot parse this regular expression.'
 	}
 	return new vscode.Hover(new vscode.MarkdownString(hoverMsg));
 }
