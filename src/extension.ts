@@ -12,32 +12,37 @@ const supportedLanguages = [
 	'groovy',
 ];
 
-const REGEX_MATCHER = new RegExp(`
-	(?<!<) ${/* dont match HTML e.g. '<a>b</a>' */''}
-	\\/
+const REGEX_MATCHER = new RegExp(String.raw`
+	(?<! < ) ${/* dont match HTML e.g. the '/><br/' of '<br/><br/>' */''}
+	\/
 	(
-		(?! [*+?] ) ${/* dont match block comments */''}
+		(?! \* ) ${/* dont match block comments e.g. '/*' */''}
 		(?:
-			[^\\r\\n\\[\\/\\\\] ${/* match non-escapes and non-groups */''}
-			|
-			\\\\. ${/* match escapes e.g. '\s' */''}
-			|
-			\\[
+			${/* match anything other than whitespace, escapes or groups */''}
+			[^\r\n\[\/\\]
+		|
+			${/* match escapes e.g. '\s' */''}
+			\\.
+		|
+			${/* match groups e.g. '[abc]' */''}
+			\[
 			(?:
-				[^\\r\\n\\]\\\\]
-				|
-				\\\\.
+				[^\r\n\]\\]
+			|
+				\\.
 			)*
-			\\]
+			\]
 		)+
 	)
-	\\/
+	\/
 	[gimusy]*
 	`.replace(/\s/g, '')
 );
 
-const NUM_MATCHES = 5; // number of matches shown in hover window
-const MAX_NUM_TRIES = 20; // number of times to try create non-duplicate matches before giving up
+/** Number of matches shown in hover window. */
+const NUM_MATCHES = 5;
+/** Number of times to try create non-duplicate matches before giving up. */
+const MAX_NUM_TRIES = 20;
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position) {
 	// Get content of line
@@ -45,18 +50,21 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position) 
 	const match = document.getText(range);
 	const [, matchContent, matchFlags] = match.split('/');
 	// Exit if no regex selected
-	if (match.includes('\n')) return;
+	if (match.includes('\n'))
+		return;
 	// Create preview regexes
 	const previews: string[] = [];
 	for (let i = 0; previews.length < NUM_MATCHES && i < MAX_NUM_TRIES; i++) {
-		const annotation = new RandExp(new RegExp(matchContent, matchFlags));
+		// Generate preview match string
+		const annotation = new RandExp(matchContent, matchFlags);
 		annotation.max = NUM_MATCHES;
 		const preview = annotation.gen();
+		// Add string to list if it is not a duplicate
 		if (!previews.includes(preview)) {
 			previews.push(preview);
 		}
 	}
-	// Return
+	// Return match strings
 	const previewText = previews.map(text => '\n- `` ' + text + ' ``').join('');
 	const outputText = `**Sample matches:**\n${previewText}`;
 	const result = new vscode.MarkdownString(outputText);

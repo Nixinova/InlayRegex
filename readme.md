@@ -19,14 +19,11 @@ For manual install see attachments in the [releases tab](https://github.com/Nixi
 
 ## Usage
 
-The extension activates when the document is saved.
-Hover over a regular expression literal and to be shown several possible matches of that regular expression.
+Simply hover over a regular expression literal in one of the following supported languages to be shown up to five possible matches.
 
 ### Supported languages
-- JavaScript
-- JSX
-- TypeScript
-- TSX
+- JavaScript + JSX
+- TypeScript + TSX
 - CoffeeScript
 - Ruby
 - Groovy
