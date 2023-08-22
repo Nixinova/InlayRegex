@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+- Added an error text in the hover menu for invalid regular expressions.
+- Fixed the hover menu not appearing for invalid regular expressions.
+
 ## 1.1.4
 - Fixed HTML tags being treated as regular expressions.
 

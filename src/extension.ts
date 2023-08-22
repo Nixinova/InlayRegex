@@ -45,6 +45,21 @@ const NUM_MATCHES = 5;
 const MAX_NUM_TRIES = 20;
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position) {
+	let hoverMsg = '';
+	try {
+		const generatedHover = generateHover(document, position);
+		if (!generatedHover)
+			// no regex is selected
+			return;
+		hoverMsg = generatedHover;
+	}
+	catch {
+		hoverMsg = 'Invalid regular expression.'
+	}
+	return new vscode.Hover(new vscode.MarkdownString(hoverMsg));
+}
+
+function generateHover(document: vscode.TextDocument, position: vscode.Position) {
 	// Get content of line
 	const range = document.getWordRangeAtPosition(position, REGEX_MATCHER);
 	const match = document.getText(range);
@@ -67,8 +82,7 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position) 
 	// Return match strings
 	const previewText = previews.map(text => '\n- `` ' + text + ' ``').join('');
 	const outputText = `**Sample matches:**\n${previewText}`;
-	const result = new vscode.MarkdownString(outputText);
-	return new vscode.Hover(result);
+	return outputText;
 }
 
 // Activate extension
