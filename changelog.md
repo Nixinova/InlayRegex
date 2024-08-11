@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.1.5
 - Added an error text in the hover menu for invalid regular expressions.
 - Fixed the hover menu not appearing for invalid regular expressions.
 - Fixed regular expressions containing escaped slashes not being parsed ([#4](https://github.com/Nixinova/InlayRegex/issues/4)).
