@@ -63,11 +63,12 @@ function generateHover(document: vscode.TextDocument, position: vscode.Position)
 	// Get content of line
 	const range = document.getWordRangeAtPosition(position, REGEX_MATCHER);
 	const match = document.getText(range);
-	const matchContent = match.replace(/^\//, '').replace(/\/[gimusy]*$/, ''); // remove starting slash and ending slash+flags
-	const matchFlags = match.replace(/^.+\/(?=[gimusy]*)$/, '') // remove all except final flags
 	// Exit if no regex selected
 	if (match.includes('\n'))
 		return;
+	// Get regex parts
+	const matchContent = match.replace(/^\//, '').replace(/\/[gimusy]*$/, ''); // remove starting slash and ending slash+flags
+	const matchFlags = match.match(/\/([gimusy]*)$/)![1] // get final flags
 	// Create preview regexes
 	const previews: string[] = [];
 	for (let i = 0; previews.length < NUM_MATCHES && i < MAX_NUM_TRIES; i++) {
