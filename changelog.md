@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.1.6
 - Fixed sampled matches including the suffix of the regular expression source.
 - Fixed expression flags not being applied properly.
 
@@ -10,7 +10,7 @@
 - Fixed regular expressions containing escaped slashes not being parsed ([#4](https://github.com/Nixinova/InlayRegex/issues/4)).
 
 ## 1.1.4
-- Fixed HTML tags being treated as regular expressions.
+- Fixed HTML tags being treated as regular expressions ((https://github.com/Nixinova/Inlay-Regex/issues/1)).
 
 ## 1.1.3
 - Changed the description text in the hover window.

@@ -1,8 +1,8 @@
 {
 	"name": "inlay-regex",
 	"displayName": "Inlay Regex Previewer",
-	"version": "1.1.5",
-	"description": "Generate sample matches when a regular expression is hovered over.",
+	"version": "1.1.6",
+	"description": "Generate sample preview matches when a regular expression is hovered over.",
 	"categories": [
 		"Other"
 	],
@@ -28,9 +28,9 @@
 		"randexp": "~0.5.3"
 	},
 	"devDependencies": {
-		"@types/node": "ts5.0",
+		"@types/node": "ts5.1",
 		"@types/vscode": "1.50.0",
-		"typescript": "^5.1.6"
+		"typescript": "~5.1.6"
 	},
 	"engines": {
 		"vscode": "^1.50.0"
