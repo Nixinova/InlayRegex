@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Updated allowable flag characters.
+
 ## 1.1.6
 - Fixed sampled matches including the suffix of the regular expression source.
 - Fixed expression flags not being applied properly.

@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
 import RandExp from 'randexp';
+import * as vscode from 'vscode';
 
 const supportedLanguages = [
 	// languages with regex literals
@@ -35,7 +35,7 @@ const REGEX_MATCHER = new RegExp(String.raw`
 		)+
 	)
 	\/
-	[gimusy]*
+	[dgimsuvy]*
 	`.replace(/\s/g, '')
 );
 
@@ -67,8 +67,8 @@ function generateHover(document: vscode.TextDocument, position: vscode.Position)
 	if (match.includes('\n'))
 		return;
 	// Get regex parts
-	const matchContent = match.replace(/^\//, '').replace(/\/[gimusy]*$/, ''); // remove starting slash and ending slash+flags
-	const matchFlags = match.match(/\/([gimusy]*)$/)![1] // get final flags
+	const matchContent = match.replace(/^\//, '').replace(/\/[dgimsuvy]*$/, ''); // remove starting slash and ending slash+flags
+	const matchFlags = match.match(/\/([dgimsuvy]*)$/)![1] // get final flags
 	// Create preview regexes
 	const previews: string[] = [];
 	for (let i = 0; previews.length < NUM_MATCHES && i < MAX_NUM_TRIES; i++) {
